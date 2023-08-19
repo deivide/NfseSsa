@@ -228,4 +228,20 @@ class RequestService
 
         return $response;
     }
+
+    public function cancelarNfse($xml)
+    {
+        $wsdlSuffix = '/nfsews/nfse.asmx?wsdl';
+
+        $finalXml = $this->generateXmlBody($xml, 'CancelamentoNFSE', 'xml');
+
+        $response = $this->consult(
+            $wsdlSuffix,
+            $finalXml,
+            'CancelamentoNFSE',
+            'CancelamentoNFSEResult'
+        );
+
+        return $response;
+    }
 }

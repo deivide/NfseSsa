@@ -115,4 +115,20 @@ class NfseSsa
 
         return $result;
     }
+
+    /**
+     * @param $dados
+     * @return mixed
+     * @throws \Throwable
+     */
+    public function cancelarNfse($dados)
+    {
+        $xml = xml_view('CancelarNfse', $dados);
+
+        $signedXml = $this->signatureService->signXml($xml, true, ['Pedido']);
+
+        $result = $this->requestService->cancelarNfse($signedXml);
+
+        return $result;
+    }
 }
