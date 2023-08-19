@@ -81,6 +81,6 @@ class SignatureService
         }
 
         // The signed XML
-        return $doc->saveXML();
+        return $doc->saveXML($doc->documentElement);
     }
 }
