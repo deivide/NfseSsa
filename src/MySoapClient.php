@@ -10,12 +10,10 @@ namespace Potelo\NfseSsa;
  */
 class MySoapClient extends \SoapClient
 {
-
     public $soapRequest;
 
     public function __doRequest($request, $location, $action, $version, $one_way = 0)
     {
-
         $request = str_replace('xmlns:ns2="<anyXML>"', '', $request);
         $request = str_replace(':ns1', '', $request);
         $request = str_replace('ns1:', '', $request);
@@ -30,22 +28,21 @@ class MySoapClient extends \SoapClient
         return (parent::__doRequest($request, $location, $action, $version));
     }
 
-    function sanitizeOutput($buffer)
+    public function sanitizeOutput($buffer)
     {
+        $search = [
+            '/\>[^\S ]+/s', // strip whitespaces after tags, except space
+            '/[^\S ]+\</s', // strip whitespaces before tags, except space
+            '/(\s)+/s', // shorten multiple whitespace sequences
+            '/<!--(.|\s)*?-->/', // Remove HTML comments
+        ];
 
-        $search = array(
-            '/\>[^\S ]+/s',     // strip whitespaces after tags, except space
-            '/[^\S ]+\</s',     // strip whitespaces before tags, except space
-            '/(\s)+/s',         // shorten multiple whitespace sequences
-            '/<!--(.|\s)*?-->/' // Remove HTML comments
-        );
-
-        $replace = array(
+        $replace = [
             '>',
             '<',
             '\\1',
-            ''
-        );
+            '',
+        ];
 
         $buffer = preg_replace($search, $replace, $buffer);
 

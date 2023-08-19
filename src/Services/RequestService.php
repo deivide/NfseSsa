@@ -2,14 +2,12 @@
 
 namespace Potelo\NfseSsa\Services;
 
-
 use Potelo\NfseSsa\MySoapClient;
 use Potelo\NfseSsa\Request\Error;
 use Potelo\NfseSsa\Request\Response;
 
 class RequestService
 {
-
     /**
      * @var string
      */
@@ -24,7 +22,6 @@ class RequestService
      * @var array
      */
     private $soapOptions;
-
 
     public function __construct()
     {
@@ -41,8 +38,8 @@ class RequestService
                 // set some SSL/TLS specific options
                 'verify_peer' => false,
                 'verify_peer_name' => false,
-                'allow_self_signed' => true
-            ]
+                'allow_self_signed' => true,
+            ],
         ]);
 
         $this->soapOptions = [
@@ -50,7 +47,7 @@ class RequestService
             'trace' => true,
             'local_cert' => $this->certificatePrivate,
             'cache_wsdl' => WSDL_CACHE_NONE,
-            'stream_context' => $context
+            'stream_context' => $context,
         ];
     }
 
@@ -63,7 +60,7 @@ class RequestService
      */
     private function consult($wsdlSuffix, $xml, $method, $return)
     {
-        $wsdl = $this->urlBase . $wsdlSuffix;
+        $wsdl = $this->urlBase.$wsdlSuffix;
 
         $client = new MySoapClient($wsdl, $this->soapOptions);
 
@@ -71,7 +68,7 @@ class RequestService
 
         $result = call_user_func_array([$client, $method], [$params]);
 
-        $xmlObj = simplexml_load_string($result->{$return});
+        $xmlObj = simplexml_load_string($result->{$return}->any);
 
         $response = new Response();
 

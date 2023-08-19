@@ -1,6 +1,6 @@
 <?php
 
-if (!function_exists('xml_view')) {
+if (! function_exists('xml_view')) {
 
     /**
      * @param $view
@@ -9,14 +9,14 @@ if (!function_exists('xml_view')) {
      * @throws Throwable
      */
     function xml_view($view, $data)
-    {
+    : string {
         $view = view("nfse-ssa::$view", ['dados' => $data]);
 
         return $view->render();
     }
 }
 
-if (!function_exists('array_get')) {
+if (! function_exists('array_get')) {
 
     /**
      * @param $array
@@ -24,7 +24,7 @@ if (!function_exists('array_get')) {
      * @return null
      */
     function array_get($array, $key)
-    {
+    : null {
         if (array_key_exists($key, $array)) {
             return $array[$key];
         }
@@ -33,7 +33,7 @@ if (!function_exists('array_get')) {
     }
 }
 
-if (!function_exists('array_xml_get')) {
+if (! function_exists('array_xml_get')) {
 
     /**
      * @param $array
@@ -41,12 +41,12 @@ if (!function_exists('array_xml_get')) {
      * @return null
      */
     function array_xml_get($array, $key)
-    {
+    : null {
         if ($value = array_get($array, $key)) {
-            $xmlTag = "<" . studly_case($key) . ">";
-            $xmlCloseTag = "</" . studly_case($key) . ">";
+            $xmlTag = '<'.studly_case($key).'>';
+            $xmlCloseTag = '</'.studly_case($key).'>';
 
-            return $xmlTag . $value . $xmlCloseTag;
+            return $xmlTag.$value.$xmlCloseTag;
         }
 
         return null;

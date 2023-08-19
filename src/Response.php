@@ -2,7 +2,6 @@
 
 namespace Potelo\NfseSsa;
 
-
 class Response
 {
     /**
