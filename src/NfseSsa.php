@@ -25,6 +25,24 @@ class NfseSsa
      *
      * @throws \Throwable
      */
+    public function validarLoteRps($dados)
+    {
+        $xml = xml_view('ValidarLoteRPS', $dados);
+
+        $signedXml = $this->signatureService->signXml($xml, true, ['Rps']);
+
+        $result = $this->requestService->validarLoteRps($signedXml);
+
+        return $result;
+    }
+
+    /**
+     * @param $dados
+     *
+     * @return
+     *
+     * @throws \Throwable
+     */
     public function enviarLoteRps($dados)
     {
         $xml = xml_view('EnviarLoteRPS', $dados);

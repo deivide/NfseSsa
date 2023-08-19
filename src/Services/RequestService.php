@@ -113,6 +113,25 @@ class RequestService
         ";
     }
 
+    /**
+     * @param $xml
+     * @return Response
+     */
+    public function validarLoteRps($xml)
+    {
+        $wsdlSuffix = '/nfsews/nfse.asmx?wsdl';
+
+        $finalXml = $this->generateXmlBody($xml, 'ValidarLoteRPS', 'outterXml');
+
+        $response = $this->consult(
+            $wsdlSuffix,
+            $finalXml,
+            'ValidarLoteRPS',
+            'ValidarLoteRPSResult'
+        );
+
+        return $response;
+    }
 
     /**
      * @param $xml
