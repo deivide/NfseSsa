@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
+
 if (! function_exists('xml_view')) {
 
     /**
@@ -8,8 +11,8 @@ if (! function_exists('xml_view')) {
      * @return string
      * @throws Throwable
      */
-    function xml_view($view, $data)
-    : string {
+    function xml_view($view, $data): string
+    {
         $view = view("nfse-ssa::$view", ['dados' => $data]);
 
         return $view->render();
@@ -19,17 +22,16 @@ if (! function_exists('xml_view')) {
 if (! function_exists('array_get')) {
 
     /**
-     * @param $array
-     * @param $key
-     * @return null
+     * Get an item from an array using "dot" notation.
+     *
+     * @param  \ArrayAccess|array  $array
+     * @param  string|int|null  $key
+     * @param  mixed  $default
+     * @return mixed
      */
-    function array_get($array, $key)
-    : null {
-        if (array_key_exists($key, $array)) {
-            return $array[$key];
-        }
-
-        return null;
+    function array_get($array, $key): mixed
+    {
+        return Arr::get($array, $key);
     }
 }
 
@@ -38,13 +40,13 @@ if (! function_exists('array_xml_get')) {
     /**
      * @param $array
      * @param $key
-     * @return null
+     * @return mixed
      */
-    function array_xml_get($array, $key)
-    : null {
-        if ($value = array_get($array, $key)) {
-            $xmlTag = '<'.studly_case($key).'>';
-            $xmlCloseTag = '</'.studly_case($key).'>';
+    function array_xml_get($array, $key): mixed
+    {
+        if ($value = Arr::get($array, $key)) {
+            $xmlTag = '<'.Str::studly($key).'>';
+            $xmlCloseTag = '</'.Str::studly($key).'>';
 
             return $xmlTag.$value.$xmlCloseTag;
         }
