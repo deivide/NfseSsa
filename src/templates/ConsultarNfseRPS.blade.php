@@ -1,4 +1,3 @@
-<?php echo '<?xml version="1.0" encoding="utf-8"?>'; ?>
 <ConsultarNfseRpsEnvio xmlns="http://www.abrasf.org.br/ABRASF/arquivos/nfse.xsd">
     <IdentificacaoRps>
         {!! array_xml_get($dados['identificacao_rps'], 'numero') !!}

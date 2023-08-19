@@ -26,9 +26,9 @@ class RequestService
     public function __construct()
     {
         if (config('nfse-ssa.homologacao') == true) {
-            $this->urlBase = 'https://notahml.salvador.ba.gov.br';
+            $this->urlBase = 'http://nfse.pmfi.pr.gov.br';
         } else {
-            $this->urlBase = 'https://nfse.salvador.ba.gov.br';
+            $this->urlBase = 'http://nfse.pmfi.pr.gov.br';
         }
 
         $this->certificatePrivate = config('nfse-ssa.certificado_privado_path');
@@ -107,7 +107,7 @@ class RequestService
         return "
             <$mainTagName xmlns='http://tempuri.org/'>
                 <$subTagName>
-                  <![CDATA[$xml]]>
+                    $xml
                 </$subTagName>
             </$mainTagName>
         ";
@@ -120,15 +120,15 @@ class RequestService
      */
     public function enviarLoteRps($xml)
     {
-        $wsdlSuffix = '/rps/ENVIOLOTERPS/EnvioLoteRPS.svc?wsdl';
+        $wsdlSuffix = '/nfsews/nfse.asmx?wsdl';
 
-        $finalXml = $this->generateXmlBody($xml, 'EnviarLoteRPS', 'loteXML');
+        $finalXml = $this->generateXmlBody($xml, 'RecebeLoteRPS', 'xml');
 
         $response = $this->consult(
             $wsdlSuffix,
             $finalXml,
-            'EnviarLoteRPS',
-            'EnviarLoteRPSResult'
+            'RecebeLoteRPS',
+            'RecebeLoteRPSResult'
         );
 
         return $response;
@@ -140,9 +140,9 @@ class RequestService
      */
     public function consultarSituacaoLoteRps($xml)
     {
-        $wsdlSuffix = '/rps/CONSULTASITUACAOLOTERPS/ConsultaSituacaoLoteRPS.svc?wsdl';
+        $wsdlSuffix = '/nfsews/nfse.asmx?wsdl';
 
-        $finalXml = $this->generateXmlBody($xml, 'ConsultarSituacaoLoteRPS', 'loteXML');
+        $finalXml = $this->generateXmlBody($xml, 'ConsultarSituacaoLoteRPS', 'xml');
 
         $response = $this->consult(
             $wsdlSuffix,
@@ -160,9 +160,9 @@ class RequestService
      */
     public function consultarLoteRps($xml)
     {
-        $wsdlSuffix = '/rps/CONSULTALOTERPS/ConsultaLoteRPS.svc?wsdl';
+        $wsdlSuffix = '/nfsews/nfse.asmx?wsdl';
 
-        $finalXml = $this->generateXmlBody($xml, 'ConsultarLoteRPS', 'loteXML');
+        $finalXml = $this->generateXmlBody($xml, 'ConsultarLoteRPS', 'xml');
 
         $response = $this->consult(
             $wsdlSuffix,
@@ -180,9 +180,9 @@ class RequestService
      */
     public function consultarNfseRps($xml)
     {
-        $wsdlSuffix = '/rps/CONSULTANFSERPS/ConsultaNfseRPS.svc?wsdl';
+        $wsdlSuffix = '/nfsews/nfse.asmx?wsdl';
 
-        $finalXml = $this->generateXmlBody($xml, 'ConsultarNfseRPS', 'consultaxml');
+        $finalXml = $this->generateXmlBody($xml, 'ConsultarNfseRPS', 'xml');
 
         $response = $this->consult(
             $wsdlSuffix,
@@ -196,9 +196,9 @@ class RequestService
 
     public function consultarNfse($xml)
     {
-        $wsdlSuffix = '/rps/CONSULTANFSE/ConsultaNfse.svc?wsdl';
+        $wsdlSuffix = '/nfsews/nfse.asmx?wsdl';
 
-        $finalXml = $this->generateXmlBody($xml, 'ConsultarNfse', 'consultaxml');
+        $finalXml = $this->generateXmlBody($xml, 'ConsultarNfse', 'xml');
 
         $response = $this->consult(
             $wsdlSuffix,

@@ -1,4 +1,3 @@
-<?php echo '<?xml version="1.0" encoding="utf-8"?>'; ?>
 <EnviarLoteRpsEnvio xmlns="http://www.abrasf.org.br/ABRASF/arquivos/nfse.xsd">
     <LoteRps id="{{ array_get($dados, 'id') }}">
         {!! array_xml_get($dados, 'numero_lote') !!}
