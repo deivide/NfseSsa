@@ -12,7 +12,7 @@ class MySoapClient extends \SoapClient
 {
     public $soapRequest;
 
-    public function __doRequest($request, $location, $action, $version, $one_way = 0)
+    public function __doRequest($request, $location, $action, $version, $one_way = 0): ?string
     {
         $request = str_replace('xmlns:ns2="<anyXML>"', '', $request);
         $request = str_replace(':ns1', '', $request);
